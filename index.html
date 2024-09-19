@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Office of Performance Management and Open Data | Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <style>
+      body {
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+
+      #map {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 0;
+        margin: 0;
+      }
+    </style>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+    <script src="https://unpkg.com/papaparse@5.4.1/papaparse.min.js"></script>
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <script>
+      var center = [35.045631, -85.309677];
+      var zoom = 12;
+
+      const map = L.map("map").setView(center, zoom);
+
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      // fetch csv
+      fetch("./data.csv")
+        .then(function (response) { return response.text(); })
+        .then(function (text) {
+            // parse csv text
+            const rows = Papa.parse(text, { header: true });
+            console.log("rows:", rows);
+
+            // add water fountains to map
+            rows.data.forEach(function (row) {
+                try {
+                    const latitude = row['@lat'];
+                    const longitude = row['@lon'];
+                    const point = [latitude, longitude];
+
+                    const myRenderer = L.svg({ padding: 0.75 });
+                    const circle = L.circleMarker(point, { radius: 10, color: "black", fill: "white", opacity: 0.75 })
+                    .bindPopup(row['name'] || "unknown name")
+                    .addTo(map);
+                } catch (error) {
+                    console.error(error);
+                }
+            })
+        });
+    </script>
+  </body>
+</html>
