@@ -1,24 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.62.1 084b4234">
-<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-<meta osm_base="2024-09-19T20:41:53Z"/>
-
-  <node id="10736179544" lat="35.1370778" lon="-85.3162549">
-    <tag k="climbing" v="boulder"/>
-    <tag k="natural" v="rock"/>
-    <tag k="sport" v="climbing"/>
-  </node>
-  <node id="12186594605" lat="35.0137844" lon="-85.3329896">
-    <tag k="climbing" v="boulder"/>
-    <tag k="name" v="The Mountain"/>
-    <tag k="natural" v="rock"/>
-    <tag k="sport" v="climbing"/>
-  </node>
-  <node id="12186594606" lat="35.0132657" lon="-85.3332050">
-    <tag k="climbing" v="boulder"/>
-    <tag k="name" v="Luna"/>
-    <tag k="natural" v="rock"/>
-    <tag k="sport" v="climbing"/>
-  </node>
-
-</osm>
+name,@type,@lat,@lon
+,node,35.1370778,-85.3162549
+The Mountain,node,35.0137844,-85.3329896
+Luna,node,35.0132657,-85.3332050
